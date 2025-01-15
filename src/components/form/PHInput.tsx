@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Form, Input } from "antd";
 import { Controller } from "react-hook-form";
 
 type TInputProps = {
@@ -6,18 +6,21 @@ type TInputProps = {
   name: string;
   label?: string;
   disabled?: boolean;
-  error?: string;
 };
 
-const PHInput = ({ type, name, label, error }: TInputProps) => {
+const PHInput = ({ type, name, label }: TInputProps) => {
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div style={{ width: "100%", margin: "20px" }}>
       {label ? label : null}
       <Controller
         name={name}
-        render={({ field }) => <Input {...field} type={type} id={name}/>}
+        render={({ field, fieldState: { error } }) => 
+          <Form.Item>
+            <Input {...field} type={type} id={name} />
+           {error && <small style={{ color: "red" }}>{error.message}</small>}
+          </Form.Item>
+        }
       />
-      <small>{error}</small>
     </div>
   );
 };
