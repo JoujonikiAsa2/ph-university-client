@@ -1,5 +1,6 @@
 import { jwtDecode } from "jwt-decode"
 
 export const verifyToken = (token:string) =>{
-    return jwtDecode(token)
+    console.log("decoded user",  jwtDecode(token))
+    return  jwtDecode(token)
 }

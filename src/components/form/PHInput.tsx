@@ -10,7 +10,7 @@ type TInputProps = {
 
 const PHInput = ({ type, name, label }: TInputProps) => {
   return (
-    <div style={{ width: "100%", margin: "20px" }}>
+    <div style={{ width: "100%" }}>
       {label ? label : null}
       <Controller
         name={name}

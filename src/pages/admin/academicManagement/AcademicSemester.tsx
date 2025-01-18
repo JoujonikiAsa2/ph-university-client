@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Space, Table, TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { TAcademicSemester } from "../../../types/academicManagementType";
 import { TQueryParam } from "../../../types/globals";
-import { useGetAllSemestersQuery } from "../../../redux/features/academicSemester/academicSemesterApi";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { useGetAllSemestersQuery } from "../../../redux/features/academicManagement/academicManagementApi";
 
 export type TTableData = Pick<
   TAcademicSemester,
@@ -17,7 +19,7 @@ const AcademicSemester = () => {
     isFetching,
   } = useGetAllSemestersQuery(params);
 
-  console.log({ isLoading, isFetching });
+  console.log({ semesterData });
 
   const tableData = semesterData?.data?.map(
     ({ _id, name, startMonth, endMonth, year }) => ({
@@ -83,9 +85,10 @@ const AcademicSemester = () => {
       key: "x",
       render: () => {
         return (
-          <div>
-            <Button>Update</Button>
-          </div>
+          <Space>
+            <Button><EditOutlined/></Button>
+            <Button><DeleteOutlined/></Button>
+          </Space>
         );
       },
     },
@@ -97,6 +100,8 @@ const AcademicSemester = () => {
     sorter,
     extra
   ) => {
+
+    console.log({ pagination, filters, sorter, extra });
     if (extra.action === "filter") {
       const queryParams: TQueryParam[] = [];
 
@@ -114,9 +119,7 @@ const AcademicSemester = () => {
 
   return <>
    <Space style={{ marginBottom: 16 }}>
-        <Button >Sort age</Button>
-        <Button >Clear filters</Button>
-        <Button >Clear filters and sorters</Button>
+        <Button onClick={() => setParams(undefined)}>Clear filters</Button>
       </Space>
       <Table
       loading={isFetching}

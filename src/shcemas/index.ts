@@ -11,3 +11,7 @@ export const loginSchema = z.object({
   id: z.string({ required_error: 'ID is required' }),
   password: z.string({ required_error: 'Password is required' }),
 });
+
+export const academicFacultySchema = z.object({
+  name: z.string({ required_error: 'Please select a Name' }),
+});
